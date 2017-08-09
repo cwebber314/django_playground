@@ -1,0 +1,17 @@
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        {{ form.media.css }}
+        <title>Chips Branches</title>
+        {% block extrahead %}
+        {% endblock extrahead %}
+    </head>
+    <h1>Chip's Branches</h1>
+    <body>
+    {% block content %}{% endblock content %}
+    </body>
+    {{ form.media.js }}
+</html>
