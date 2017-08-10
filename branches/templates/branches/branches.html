@@ -2,18 +2,27 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extrahead %}
+{% load widget_tweaks %}
+
 <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
 <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script>
 <script src="{% static 'django_select2/django_select2.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% endblock extrahead %}
 
 {% load render_table from django_tables2 %}
 {% block content %}
     <body>
-        <form action="" method="get">
-            {{ filter.form.as_p }}
+        <form method="get">
+            <div class="form-group">
+                {{ filter.form.branchname.label_tag }}
+                {% render_field filter.form.branchname class="form-control" %}
+            </div>
             <input type="submit" />
         </form>
         {% render_table table %}

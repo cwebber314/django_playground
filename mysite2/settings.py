@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap3',
     'django_select2',
+    'widget_tweaks',
     #'jquery',
 ]
 

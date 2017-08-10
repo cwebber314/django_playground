@@ -22,7 +22,7 @@ class BranchFilter(django_filters.FilterSet):
                 widget=Select2Widget)
     class Meta:
         model = Branch
-        fields = ['ckt', 'branchname']
+        fields = ['branchname']
         #exclude = []
 
 class BranchView(SingleTableView, FilterView):
