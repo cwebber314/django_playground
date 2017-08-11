@@ -12,6 +12,27 @@ import django_filters
 
 from .models import Line, Branch, Equipment
 from .tables import BranchTable, LineTable, EquipmentTable
+from .forms import BranchesForm
+
+def branches2(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = BranchesForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            branch = form.cleaned_data['branch']
+            if branch is None:
+                table = BranchTable(Branch.objects.all())
+            else:
+                table = BranchTable(Branch.objects.filter(branch=branch))
+
+    # if a GET (or any other method) we'll create a blank form
+    elif request.method == 'GET':
+        form = BranchesForm()
+        table = BranchTable(Branch.objects.all())
+
+    return render(request, 'branches/branches2.html', {'form': form, 'table': table})
 
 def index(request):
     return HttpResponse("Hello, world. You're at the branches index.")
