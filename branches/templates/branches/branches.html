@@ -20,6 +20,7 @@ Render forms using 3rd party libraries.
 
 {% load render_table from django_tables2 %}
 {% block content %}
+<div class="container">
     <body>
         <form method="get">
             <div class="form-group">
@@ -29,4 +30,5 @@ Render forms using 3rd party libraries.
             <input type="submit" />
         </form>
         {% render_table table %}
+    </div>
 {% endblock content %}

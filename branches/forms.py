@@ -22,5 +22,6 @@ class BranchesForm(forms.Form):
         queryset = Branch.objects.all(),
         widget = ModelSelect2Widget(
                 model=Branch,
-                search_fields='branchname')
+                search_fields='branchname',
+                )
                 )

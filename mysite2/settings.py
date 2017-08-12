@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_select2',
     'widget_tweaks',
+     'django_extensions',
     #'jquery',
 ]
 

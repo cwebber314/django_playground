@@ -20,12 +20,25 @@ Render forms with more manual html
 
 {% load render_table from django_tables2 %}
 {% block content %}
-<form action="/branches/branches2/" method="post">
-    {% csrf_token %}
-    <label for="{{ form.branchname.id_for_label }}">Branch Name:</label>
-    {% render_field form.branchname class="form-control" %}
-    <br>
-    <input type="submit" value="Submit" />
-</form>
+<div class="container">
+    <form action="/branches/branches2/" method="post" class="form-horizontal">
+        <div class="form-group">
+            {% csrf_token %}
+            <label for="{{ form.branch.id_for_label }}" class="control-label col-sm-2">Branch Name:</label>
+            <div class="col-sm-10">
+                <!--
+                Make sure you render the Select2 widget with valid attributes
+                -->
+            {% render_field form.branch class="form-control" data-placeholder="---" data-allow-clear="true" %}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Submit" />
+            </div>
+        </div>
+    </form>
 {% render_table table %}
+</div>
+
 {% endblock content %}

@@ -20,12 +20,13 @@ def branches2(request):
         # create a form instance and populate it with data from the request:
         form = BranchesForm(request.POST)
         # check whether it's valid:
+        # TODO: Allow selection.
         if form.is_valid():
-            branch = form.cleaned_data['branch']
+            branch = form.cleaned_data['branch'].branchid
             if branch is None:
                 table = BranchTable(Branch.objects.all())
             else:
-                table = BranchTable(Branch.objects.filter(branch=branch))
+                table = BranchTable(Branch.objects.filter(branchid=branch))
 
     # if a GET (or any other method) we'll create a blank form
     elif request.method == 'GET':
