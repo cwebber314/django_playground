@@ -1,0 +1,7 @@
+django
+django_select2
+django_tables2
+django_filter
+django_select2
+django-widget-tweaks
+django_extensions

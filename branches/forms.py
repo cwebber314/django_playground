@@ -7,14 +7,21 @@ from django_select2.forms import (
 
 from .models import Branch
 
-class _BranchesForm(forms.Form):
+class BranchForm(forms.ModelForm):
     """
     Implementation with vanilla django widgets
     """
-    branchid = forms.IntegerField(label='Branch ID', required=False)
-    branchid2 = forms.ChoiceField(label='Branch ID Choice', required=False)
+    class Meta:
+        model = Branch
+        fields = ['branchid', 'lineid', 'branchname', 'frombusid', 'tobusid', 'ckt']
+        widgets = {
+            'lineid': Select2Widget,
+            'frombusid': Select2Widget,
+            'tobusid': Select2Widget,
+        }
 
-class BranchesForm(forms.Form):
+
+class SelectBranchForm(forms.Form):
     """
     Implementation with Select2 widgets
     """

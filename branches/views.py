@@ -8,17 +8,19 @@ from django_tables2 import SingleTableView
 from django_filters.views import FilterView
 from django_select2.forms import Select2Widget
 import django_filters
+from django.views.generic.edit import UpdateView, FormView, CreateView
+from django.views.generic import ListView
 
 
 from .models import Line, Branch, Equipment
 from .tables import BranchTable, LineTable, EquipmentTable
-from .forms import BranchesForm
+from .forms import SelectBranchForm, BranchForm
 
 def branches2(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = BranchesForm(request.POST)
+        form = SelectBranchForm(request.POST)
         # check whether it's valid:
         # TODO: Allow selection.
         if form.is_valid():
@@ -30,7 +32,7 @@ def branches2(request):
 
     # if a GET (or any other method) we'll create a blank form
     elif request.method == 'GET':
-        form = BranchesForm()
+        form = SelectBranchForm()
         table = BranchTable(Branch.objects.all())
 
     return render(request, 'branches/branches2.html', {'form': form, 'table': table})
@@ -47,7 +49,30 @@ class BranchFilter(django_filters.FilterSet):
         fields = ['branchname']
         #exclude = []
 
-class BranchView(SingleTableView, FilterView):
+class BranchView(UpdateView):
+    form = BranchForm
+    form_class = BranchForm
+    model = Branch
+    template_name = 'branches/branch_update_form.html'
+
+class BranchUpdate(UpdateView):
+    form = BranchForm
+    model = Branch
+    fields = ['branchid', 'lineid', 'branchname', 'frombusid', 'tobusid', 'ckt']
+    template_name = 'branches/branch_update_form.html'
+
+class BranchList(ListView):
+    template_name = 'branches/branch_list.html'
+    model = Branch
+
+class BranchCreate(CreateView):
+    model = Branch
+    template_name = 'branches/branch_create.html'
+    fields = ['branchid', 'lineid', 'branchname', 'frombusid', 'tobusid', 'ckt']
+    # TODO: Redirect to branchlist on sucess
+    # success_url
+
+class BranchesView(SingleTableView, FilterView):
     model = Branch
     queryset = Branch.objects.all()
     table_class = BranchTable
@@ -57,7 +82,7 @@ class BranchView(SingleTableView, FilterView):
         return Branch.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super(BranchView, self).get_context_data(**kwargs)
+        context = super(BranchesView, self).get_context_data(**kwargs)
         filter = BranchFilter(self.request.GET, queryset=self.get_queryset(**kwargs))
         #filter.form.helper = FooFilterFormHelper()
         table = BranchTable(filter.qs)
@@ -74,7 +99,30 @@ def lines(request):
 
 
 def equipment(request):
+    """
+    Render equipment manually in a simple table
+    """
     template_name = 'branches/equipment.html'
-    table = EquipmentTable(Equipment.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, template_name, {'table': table})
+    equipment = Equipment.objects.all()
+    #queryset = Branch.objects.all()
+    return render(request, template_name, {'equipment': equipment})
+
+
+def equipment2(request):
+    """
+    Render equipment manually in a data table with sort.
+    """
+    template_name = 'branches/equipment2.html'
+    equipment = Equipment.objects.all()
+    #queryset = Branch.objects.all()
+    return render(request, template_name, {'equipment': equipment})
+
+
+def equipment3(request):
+    """
+    Editable data table
+    """
+    template_name = 'branches/equipment3.html'
+    equipment = Equipment.objects.all()
+    #queryset = Branch.objects.all()
+    return render(request, template_name, {'equipment': equipment})

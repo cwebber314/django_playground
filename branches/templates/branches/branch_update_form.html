@@ -1,0 +1,29 @@
+<!--
+Show update form
+-->
+{# Load the tag library #}
+{% extends "base.html" %}
+{% load static %}
+{% block extrahead %}
+{% load widget_tweaks %}
+
+<link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+<script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script>
+<script src="{% static 'django_select2/django_select2.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{% endblock extrahead %}
+
+{% load render_table from django_tables2 %}
+{% block content %}
+<div class="container">
+  <form action="" method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Update" />
+  </form>
+</div>
+{% endblock content %}

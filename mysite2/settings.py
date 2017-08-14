@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_tables2',
     'django_filters',
-    'crispy_forms',
-    'bootstrap3',
     'django_select2',
     'widget_tweaks',
-     'django_extensions',
+    'django_extensions',
+    #'table', # Data tables
+    #'bootstrap3',
     #'jquery',
 ]
 

@@ -1,19 +1,42 @@
+<!--
+Editable datatabe with xeditable
+TODO: Bind /post action back to database
+-->
 {% extends "base.html" %}
 {% load static %}
 
 {% block extrahead %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+
 <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+<script>
+$.fn.editable.defaults.mode = 'inline';
+// select elements by attribute
+$(document).ready(function() {
+    $('a[name=equipmentname]').editable();
+});
+</script>
+
 {% endblock extrahead %}
 
 {% block content %}
 <div class="container">
-<table class="table">
+<table id="table_id" class="table display">
   <thead>
     <tr>
       <th>equipmentid</th>
@@ -28,7 +51,8 @@
     <td>{{ row.equipmentid }}</td>
     <td>{{ row.branchid }}</td>
     <td>{{ row.busid }}</td>
-    <td>{{ row.equipmentname }}</td>
+    <td><a href="#" name="equipmentname" data-type="text" data-pk="{{row.equipmentid}}"
+        data-url="/post" data-title="Enter Equipment Name">{{ row.equipmentname }}</a></td>
     </tr>
     {% endfor %}
   </tbody>
