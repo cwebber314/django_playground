@@ -10,11 +10,12 @@ from django_select2.forms import Select2Widget
 import django_filters
 from django.views.generic.edit import UpdateView, FormView, CreateView
 from django.views.generic import ListView
+from django.urls import reverse, reverse_lazy
 
 
 from .models import Line, Branch, Equipment
 from .tables import BranchTable, LineTable, EquipmentTable
-from .forms import SelectBranchForm, BranchForm
+from .forms import SelectBranchForm, BranchForm, EquipmentForm
 
 def branches2(request):
     # if this is a POST request we need to process the form data
@@ -50,16 +51,36 @@ class BranchFilter(django_filters.FilterSet):
         #exclude = []
 
 class BranchView(UpdateView):
+    """
+    With select2 widgets
+    """
     form = BranchForm
     form_class = BranchForm
     model = Branch
     template_name = 'branches/branch_update_form.html'
 
 class BranchUpdate(UpdateView):
+    """
+    With vanilla widgets
+    """
     form = BranchForm
     model = Branch
     fields = ['branchid', 'lineid', 'branchname', 'frombusid', 'tobusid', 'ckt']
     template_name = 'branches/branch_update_form.html'
+
+class EquipmentUpdate(UpdateView):
+    """
+    With select2 widgets.
+
+    Is it possible to save things like table sort order?  It is all javascript
+    so I don't know how it would be saved.
+    """
+    form = EquipmentForm
+    form_class = EquipmentForm # Super important variable
+    model = Equipment
+    #fields = ['equipmentid', 'branchid', 'busid', 'equipmentname']
+    template_name = 'branches/equipment_update_form.html'
+    success_url = reverse_lazy('equipment5')
 
 class BranchList(ListView):
     template_name = 'branches/branch_list.html'
@@ -120,9 +141,27 @@ def equipment2(request):
 
 def equipment3(request):
     """
-    Editable data table
+    Equipment table with editable field, but no database connection
     """
     template_name = 'branches/equipment3.html'
+    equipment = Equipment.objects.all()
+    #queryset = Branch.objects.all()
+    return render(request, template_name, {'equipment': equipment})
+
+def equipment4(request):
+    """
+    Equipment table with editable field.  With database connection
+    """
+    template_name = 'branches/equipment4.html'
+    equipment = Equipment.objects.all()
+    #queryset = Branch.objects.all()
+    return render(request, template_name, {'equipment': equipment})
+
+def equipment5(request):
+    """
+    Data table using edit buttons
+    """
+    template_name = 'branches/equipment5.html'
     equipment = Equipment.objects.all()
     #queryset = Branch.objects.all()
     return render(request, template_name, {'equipment': equipment})

@@ -1,0 +1,52 @@
+<!--
+Render in a datatable with edit link
+-->
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+<script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+{% endblock extrahead %}
+
+{% block content %}
+<h2>Equipment with edit link</h2>
+<p>Equipment table (datatables) with edit link</p>
+<div class="container">
+<table id="table_id" class="table display">
+  <thead>
+    <tr>
+      <th>action</th>
+      <th>equipmentid</th>
+      <th>branchid</th>
+      <th>busid</th><th>
+        equipmentname</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in equipment %}
+    <tr>
+    <td><a href="/branches/equipment/edit/{{row.equipmentid}}">edit</a></td>
+    <td>{{ row.equipmentid }}</td>
+    <td>{{ row.branchid }}</td>
+    <td>{{ row.busid }}</td>
+    <td>{{ row.equipmentname }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

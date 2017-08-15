@@ -5,7 +5,7 @@ from django_select2.forms import (
     Select2Widget
     )
 
-from .models import Branch
+from .models import Branch, Equipment
 
 class BranchForm(forms.ModelForm):
     """
@@ -18,6 +18,18 @@ class BranchForm(forms.ModelForm):
             'lineid': Select2Widget,
             'frombusid': Select2Widget,
             'tobusid': Select2Widget,
+        }
+
+class EquipmentForm(forms.ModelForm):
+    """
+    Implementation with vanilla django widgets
+    """
+    class Meta:
+        model = Equipment
+        fields = ['equipmentid', 'branchid', 'busid', 'equipmentname']
+        widgets = {
+            'branchid': Select2Widget,
+            'busid': Select2Widget,
         }
 
 

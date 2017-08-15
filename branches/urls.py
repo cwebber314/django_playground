@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^equipment/$', views.equipment, name='equipment'), # Render manually
     url(r'^equipment2/$', views.equipment2, name='equipment2'), # Render manually with data tables
     url(r'^equipment3/$', views.equipment3, name='equipment3'), # Editable
+    url(r'^equipment4/$', views.equipment4, name='equipment4'), # Editable
+    url(r'^equipment5/$', views.equipment5, name='equipment5'), # Editable
+    url(r'^equipment/edit/(?P<pk>[0-9]+)/$', views.EquipmentUpdate.as_view()),
     url(r'^select2/', include('django_select2.urls')), # for ModelWidgets.
     url(r'^branch/update/(?P<pk>[0-9]+)/$', views.BranchUpdate.as_view()),
     url(r'^branch/up/(?P<pk>[0-9]+)/$', views.BranchView.as_view()),
