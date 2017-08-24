@@ -78,7 +78,6 @@ class EquipmentUpdate(UpdateView):
     form = EquipmentForm
     form_class = EquipmentForm # Super important variable
     model = Equipment
-    #fields = ['equipmentid', 'branchid', 'busid', 'equipmentname']
     template_name = 'branches/equipment_update_form.html'
     success_url = reverse_lazy('equipment5')
 

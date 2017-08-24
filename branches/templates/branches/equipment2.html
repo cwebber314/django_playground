@@ -24,25 +24,26 @@ $(document).ready( function () {
 
 {% block content %}
 <div class="container">
-<table id="table_id" class="table display">
-  <thead>
-    <tr>
-      <th>equipmentid</th>
-      <th>branchid</th>
-      <th>busid</th><th>
-        equipmentname</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in equipment %}
-    <tr>
-    <td>{{ row.equipmentid }}</td>
-    <td>{{ row.branchid }}</td>
-    <td>{{ row.busid }}</td>
-    <td>{{ row.equipmentname }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <p>Render equipment manually in a data table with sort.</p>
+  <table id="table_id" class="table display">
+    <thead>
+      <tr>
+        <th>equipmentid</th>
+        <th>branchid</th>
+        <th>busid</th><th>
+          equipmentname</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in equipment %}
+      <tr>
+      <td>{{ row.equipmentid }}</td>
+      <td>{{ row.branchid }}</td>
+      <td>{{ row.busid }}</td>
+      <td>{{ row.equipmentname }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

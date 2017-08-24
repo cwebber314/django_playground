@@ -24,12 +24,16 @@ class EquipmentForm(forms.ModelForm):
     """
     Implementation with vanilla django widgets
     """
+    equipmentid = forms.IntegerField(disabled=True)
+
+    # This doesn't work up here.
+    #branchid = Select2Widget(attrs={'data-width': 'auto'})
     class Meta:
         model = Equipment
         fields = ['equipmentid', 'branchid', 'busid', 'equipmentname']
         widgets = {
-            'branchid': Select2Widget,
-            'busid': Select2Widget,
+            'branchid': Select2Widget(attrs={'data-width': 'auto'}),
+            'busid': Select2Widget(attrs={'data-width': 'auto'}),
         }
 
 
